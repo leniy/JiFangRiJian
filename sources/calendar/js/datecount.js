@@ -516,7 +516,7 @@ function set_top(a) {
 		document.getElementById("top_yue").innerHTML = yue;
 		$(".xuanzhong").removeClass('xuanzhong');
 		a.addClass("xuanzhong");
-		if(a.attr("path")!==undefined)window.location.href="list.php?date="+a.attr("path");
+		if(a.attr("path")!==undefined)window.location.href="../listpic/index.php?date="+a.attr("path");
 	}
 }
 

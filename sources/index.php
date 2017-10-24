@@ -5,9 +5,9 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<script type="text/javascript" src="jquery.min.js"></script>
-<script type="text/javascript" src="jquery.uploadifive.min.js"></script>
-<link rel="stylesheet" type="text/css" href="uploadifive.css">
+<script type="text/javascript" src="uploadifive/jquery.min.js"></script>
+<script type="text/javascript" src="uploadifive/jquery.uploadifive.min.js"></script>
+<link rel="stylesheet" type="text/css" href="uploadifive/uploadifive.css">
 <style type="text/css">
 body {
 	font: 13px Arial, Helvetica, Sans-serif;
@@ -45,7 +45,7 @@ h1 {
 		<div id="queue"></div>
 		<input id="file_upload" name="file_upload" type="file" multiple="true">
 		<a class="uploadifive-button somebtn" href="javascript:$('#file_upload').uploadifive('upload')">开始上传</a>
-		<a class="uploadifive-button somebtn" href="calendar/">查看已有日检图片</a>
+		<a class="uploadifive-button somebtn" href="calendar/index.php">查看已有日检图片</a>
 	</form>
 
 	<script type="text/javascript">

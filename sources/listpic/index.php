@@ -1,4 +1,47 @@
-<!DOCTYPE html>
+<?php
+class Image{
+	//图片压缩操作类 v1.0，网上搜的
+	private $src;
+	private $image;
+	public $imageinfo;
+	public  $percent = 0.1;
+	public function __construct($src){
+		$this->src = $src;
+	}
+	public function openImage(){
+		list($width, $height, $type, $attr) = getimagesize($this->src);
+		$this->imageinfo = array(
+			'width'=>$width,
+			'height'=>$height,
+			'type'=>image_type_to_extension($type,false),
+			'attr'=>$attr
+		);
+		$fun = "imagecreatefrom".$this->imageinfo['type'];
+		$this->image = $fun($this->src);
+	}
+	public function thumpImage(){
+		$new_width = $this->imageinfo['width'] * $this->percent;
+		$new_height = $this->imageinfo['height'] * $this->percent;
+		$image_thump = imagecreatetruecolor($new_width,$new_height);
+		//将原图复制带图片载体上面，并且按照一定比例压缩,极大的保持了清晰度
+		imagecopyresampled($image_thump,$this->image,0,0,0,0,$new_width,$new_height,$this->imageinfo['width'],$this->imageinfo['height']);
+		imagedestroy($this->image);	
+		$this->image = 	$image_thump;
+	}
+	public function showImage(){
+		header('Content-Type: image/'.$this->imageinfo['type']);
+		$funcs = "image".$this->imageinfo['type'];
+		$funcs($this->image);
+	}
+	public function saveImage(){
+		$funcs = "image".$this->imageinfo['type'];
+		$funcs($this->image,'./thumbs/'.md5($this->src).'.'.$this->imageinfo['type']);
+	}
+	public function __destruct(){
+		imagedestroy($this->image);
+	}
+}
+?><!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN">
 <head>
 <meta charset="utf-8" />
@@ -18,7 +61,7 @@ select {
 <script src="js/jquery.lazyload.min.js?v=1.9.7"></script>
 </head>
 <body>
-<a href="http://jifangrijian.leniy.org/">返回首页</a> | <a href="http://jifangrijian.leniy.org/list/">选择日期</a> <br /><br />
+<a href="http://jifangrijian.leniy.org/">返回首页</a> | <a href="http://jifangrijian.leniy.org/calendar/index.php">选择日期</a> <br /><br />
 <?php
 function getfilecounts($dir){
 	$handle = opendir($dir);
@@ -28,13 +71,12 @@ function getfilecounts($dir){
 	return $i;
 }
 function yasuotupian($source){
-	require_once 'image.class.php';
 	$image = new Image($source);
 	$image->openImage();
 	$dest = md5($source).".".$image->imageinfo['type'];
 	if (!file_exists('./thumbs/'.$dest)) {
 		$image->thumpImage();
-		$image->saveImage(md5($source));
+		$image->saveImage();
 	}
 	return 'thumbs/'.$dest;
 }

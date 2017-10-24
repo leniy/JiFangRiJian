@@ -36,11 +36,13 @@ function set_xiaohongdian(){
 		$thisyear = substr($aaa,0,4);
 		$thismonth = substr($aaa,4,2);
 		$thisday = substr($aaa,6,2);
-		echo '$("td[data_y='.(int)$thisyear.'][data_m='.(int)$thismonth.'][data_d='.(int)$thisday.']>p").html("'.$thiscount.'");';
-		echo '$("td[data_y='.(int)$thisyear.'][data_m='.(int)$thismonth.'][data_d='.(int)$thisday.']").attr("path","'.$aaa.'");';
+		if($thiscount >= 1){
+			echo '$("td[data_y='.(int)$thisyear.'][data_m='.(int)$thismonth.'][data_d='.(int)$thisday.']>p").html("'.$thiscount.'");';
+			echo '$("td[data_y='.(int)$thisyear.'][data_m='.(int)$thismonth.'][data_d='.(int)$thisday.']").attr("path","'.$aaa.'");';
+		}
 		if($thiscount >= 21)
 			echo '$("td[data_y='.(int)$thisyear.'][data_m='.(int)$thismonth.'][data_d='.(int)$thisday.']>p").css("background-color","green");';
-		else
+		elseif($thiscount >= 1)
 			echo '$("td[data_y='.(int)$thisyear.'][data_m='.(int)$thismonth.'][data_d='.(int)$thisday.']>p").css("background-color","red");';
 	}
 	?>
