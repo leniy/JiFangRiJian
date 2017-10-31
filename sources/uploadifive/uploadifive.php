@@ -4,9 +4,8 @@ UploadiFive
 Copyright (c) 2012 Reactive Apps, Ronnie Garcia
 */
 
-// Set the uplaod directory
-if (!file_exists('uploads/'.date("Ymd"))) mkdir('uploads/'.date("Ymd"),0755,true);
-$uploadDir = '/uploads/'.date("Ymd").'/'; // Relative to the root
+// Set the upload directory
+$uploadDir = '/uploads/'.date("Ym").'/'.date("Ymd").'/'; // Relative to the root, this dir was mkdir by index.php, so need not to check file_exists
 
 // Set the allowed file extensions
 $fileTypes = array('jpg', 'jpeg', 'gif', 'png'); // Allowed file extensions

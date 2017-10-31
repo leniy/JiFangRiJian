@@ -1,5 +1,25 @@
 ﻿<?php
-/* Auther: Leniy */
+/* Auther: Leniy
+ *
+ * ┏┓  ┏┓ 
+ *┏┛┻━━━┛┻┓ 
+ *┃     ┃
+ *┃   ━  ┃ 
+ *┃ ┳┛ ┗┳ ┃ 
+ *┃       ┃ 
+ *┃   ┻   ┃ 
+ *┃       ┃ 
+ *┗━┓   ┏━┛ 
+ *  ┃   ┃神兽保佑 
+ *  ┃   ┃代码无BUG！
+ *  ┃   ┗━━━┓ 
+ *  ┃       ┣┓ 
+ *  ┃       ┏┛ 
+ *  ┗┓┓┏━┳┓┏┛ 
+ *   ┃┫┫ ┃┫┫ 
+ *   ┗┻┛ ┗┻┛  
+ *    
+ */
 function getfolderlists($dir){
 	$templist = [];
 	$handle = opendir($dir);
@@ -30,9 +50,12 @@ function getfilecounts($dir){
 function set_xiaohongdian(){
 	<?php
 	//获取uploads文件夹下面的日期文件夹列表，然后遍历每个子文件夹的图片数量
-	$templist = getfolderlists("../uploads");
-	foreach($templist as $aaa){
-		$thiscount = getfilecounts("../uploads/".$aaa);
+	$templist_month = getfolderlists("../uploads");//uploads顶级目录
+	foreach($templist_month as $bbb){//遍历uploads下面类似201709的这种目录
+	$templist_day = getfolderlists("../uploads/".$bbb);//uploads/201709这种目录
+	foreach($templist_day as $aaa){//遍历uploads/201709下面的每个20170920这种目录
+
+		$thiscount = getfilecounts("../uploads/".$bbb.'/'.$aaa);
 		$thisyear = substr($aaa,0,4);
 		$thismonth = substr($aaa,4,2);
 		$thisday = substr($aaa,6,2);
@@ -44,6 +67,7 @@ function set_xiaohongdian(){
 			echo '$("td[data_y='.(int)$thisyear.'][data_m='.(int)$thismonth.'][data_d='.(int)$thisday.']>p").css("background-color","green");';
 		elseif($thiscount >= 1)
 			echo '$("td[data_y='.(int)$thisyear.'][data_m='.(int)$thismonth.'][data_d='.(int)$thisday.']>p").css("background-color","red");';
+	}
 	}
 	?>
 }
